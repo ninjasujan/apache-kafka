@@ -1,0 +1,11 @@
+const KAFKA_CLENT_ID = "NODE_KAFKA";
+
+const KAFKA_TOPIC = "TEST-TOPIC";
+
+const KAFKA_CONSUMER_GROUP_ID = "CONSUMER_ID";
+
+module.exports = {
+    KAFKA_CLENT_ID,
+    KAFKA_TOPIC,
+    KAFKA_CONSUMER_GROUP_ID,
+};
