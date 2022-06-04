@@ -18,6 +18,9 @@ class KafkaBroker {
             groupId: KAFKA_CONSUMER_GROUP_ID,
         });
         await this.consumer.connect();
+        this.consumer.on(this.consumer.events.CONNECT, () => {
+            console.log("[Kafka Consumer connected]");
+        });
         this.subscribeToTopic();
         console.log("[Kafka initialized]");
     };

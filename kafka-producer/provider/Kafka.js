@@ -12,7 +12,9 @@ class KafkaBroker {
         });
         this.producer = this.kafka.producer();
         await this.producer.connect();
-        console.log("[Kafka initialized]");
+        this.producer.on(this.producer.events.CONNECT, () => {
+            console.log("[Kafka Producer connected]");
+        });
     };
 }
 
