@@ -1,6 +1,25 @@
-# apache-kafka
+### Apache kafka - Message Queue.
 
-**Sample demo project to understand the basics of apache kafka - produce and consume message.**
+DKafka ecouples data stream from our system.
+Offloading the work from one server to many small worker, it creates a communication pipeline in with microservice.
+Works on the basis of pub sub architecture model.
+
+**Use case of apache kafka.**
+
+    1. Message system
+    2. Activity Tracking
+    3. Gather metric data from different location.
+    4. Apps log gathering.
+
+**Component of Kafka:**
+
+1. Kafka brokers - server listen on port - 9092
+2. Producer - connect to the broker using TCP
+3. Topics - Producer writes message.
+4. Producer - Writes a message to the topic.
+5. Consumer - Picks up the message from the queue and start to process.
+6. Partition - Topics can have many partition to write a message. partition is necessary to avoid latency.
+7. Consumer group - Consume the message from the partition topics, Each partition must be consumed by one consumer.
 
 **How to setup project?**
 
@@ -11,30 +30,3 @@
 5. star the server.
 
 Note: docker image is used start kafka in localhost.
-
-**Some Kafka commands**
-
-first start zookeeper -bin/zookeeper-server-start.sh config/zookeeper.properties
-
-then start kafka server -bin/kafka-server-start.sh config/server.properties
-
-Zookeeper port ; 2181
-kafka server: 9092
-
-creating topics:
-
-    bin/kafka-topics.sh —create --bootstrap-server localhost:9092 —topic cities
-
-list all topics
-
-    bin/kafka-topics.sh —list —zookeeper localhost:2181
-
-produce message to topics
-
-    bin/kafka-console.produce.sh —broker-list localhost:9092 —topic cities
-
-Producer - broker(multiple - in case of failure) - consumer.
-
-**Zookeeper**
-maintain list of active broker - elects controller
-manage config of topics and partition
