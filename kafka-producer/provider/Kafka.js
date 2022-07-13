@@ -10,7 +10,10 @@ class KafkaBroker {
             clientId: KAFKA_CLENT_ID,
             brokers: [Locals.KAFKA_SERVER],
         });
-        this.producer = this.kafka.producer();
+        this.producer = this.kafka.producer({
+            allowAutoTopicCreation: true,
+            transactionTimeout: 3000,
+        });
         await this.producer.connect();
         this.producer.on(this.producer.events.CONNECT, () => {
             console.log("[Kafka Producer connected]");

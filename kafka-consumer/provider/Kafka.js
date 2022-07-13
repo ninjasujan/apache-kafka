@@ -3,6 +3,7 @@ const {
     KAFKA_CLENT_ID,
     KAFKA_TOPIC,
     KAFKA_CONSUMER_GROUP_ID,
+    KAFKA_BATCH_TOPIC,
 } = require("../constant/app.constant");
 const Locals = require("./Locals");
 
@@ -27,15 +28,39 @@ class KafkaBroker {
 
     static subscribeToTopic = async () => {
         await this.consumer.subscribe({
-            topics: [KAFKA_TOPIC],
+            topics: [KAFKA_TOPIC, ...Object.values(KAFKA_BATCH_TOPIC)],
             fromBeginning: true,
         });
         await this.consumer.run({
             eachMessage: async ({ topic, partition, message, heartbeat }) => {
+                console.log("[processing each message]");
                 console.log("[Topic]", topic);
-                console.log("[Partition]", partition);
                 console.log("[Message]", message.value.toString());
-                console.log("[Heartbeat]", heartbeat);
+            },
+            eachBatchAutoResolve: true,
+            eachBatch: async ({
+                batch,
+                resolveOffset,
+                heartbeat,
+                isRunning,
+                isStale,
+            }) => {
+                console.log("[Batch message processing");
+                for (let message of batch.messages) {
+                    console.log({
+                        topic: batch.topic,
+                        partition: batch.partition,
+                        highWatermark: batch.highWatermark,
+                        message: {
+                            offset: message.offset,
+                            key: message.key.toString(),
+                            value: message.value.toString(),
+                            headers: message.headers,
+                        },
+                    });
+                    resolveOffset(message.offset);
+                    await heartbeat();
+                }
             },
         });
     };

@@ -30,3 +30,38 @@ Works on the basis of pub sub architecture model.
 5. star the server.
 
 Note: docker image is used start kafka in localhost.
+
+**Kafka Client configuration**
+
+There are different ways to autenticate kafka brokers please explore all different ways of authentication given below.
+
+link: https://kafka.js.org/docs/configuration
+
+1. SSL and TLS
+2. PLAIN/SCRAM
+3. OAUTHBEARER
+4. AWS IAM
+
+Note: see kafka consumer code example to know more about the Kafka consumer.
+
+`Points to Cover: Kafka Broker discovery, kafka custom Sokcet factory, proxy support`.
+
+**Kafka Producing Message**
+
+producer send method
+
+```
+await producer.send({
+    topic: <String>,
+    messages: <Message[]>,
+    acks: <Number>,
+    timeout: <Number>,
+    compression: <CompressionTypes>,
+})
+
+If `allowAutoTopicCreation` flag is set to true then only kafka can create new topic if message contains new topic.
+
+
+
+
+```
