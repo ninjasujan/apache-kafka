@@ -4,6 +4,7 @@ const {
     KAFKA_TOPIC,
     KAFKA_CONSUMER_GROUP_ID,
     KAFKA_BATCH_TOPIC,
+    KAFKA_TRANSACTION_TOPIC,
 } = require("../constant/app.constant");
 const Locals = require("./Locals");
 
@@ -28,7 +29,11 @@ class KafkaBroker {
 
     static subscribeToTopic = async () => {
         await this.consumer.subscribe({
-            topics: [KAFKA_TOPIC, ...Object.values(KAFKA_BATCH_TOPIC)],
+            topics: [
+                KAFKA_TOPIC,
+                KAFKA_TRANSACTION_TOPIC,
+                ...Object.values(KAFKA_BATCH_TOPIC),
+            ],
             fromBeginning: true,
         });
         await this.consumer.run({

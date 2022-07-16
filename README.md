@@ -46,7 +46,7 @@ Note: see kafka consumer code example to know more about the Kafka consumer.
 
 `Points to Cover: Kafka Broker discovery, kafka custom Sokcet factory, proxy support`.
 
-**Kafka Producing Message**
+**Producing Message**
 
 producer send method
 
@@ -59,9 +59,21 @@ await producer.send({
     compression: <CompressionTypes>,
 })
 
+```
+
 If `allowAutoTopicCreation` flag is set to true then only kafka can create new topic if message contains new topic.
 
+**Consuming Message:**
 
+Subbscribe kafka consumer to topic from where we want to consume message.
 
+Message can be processed in two ways -
 
-```
+1. Each message
+2. Each bactch
+
+Note: Explore different options associated to it - ex: offset,
+
+Kafka Trasaction:
+
+Ex: Refer example in code snippet

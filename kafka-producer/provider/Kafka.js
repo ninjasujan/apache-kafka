@@ -13,6 +13,9 @@ class KafkaBroker {
         this.producer = this.kafka.producer({
             allowAutoTopicCreation: true,
             transactionTimeout: 3000,
+            transactionalId: "my-transactional-producer",
+            maxInFlightRequests: 1,
+            idempotent: true,
         });
         await this.producer.connect();
         this.producer.on(this.producer.events.CONNECT, () => {

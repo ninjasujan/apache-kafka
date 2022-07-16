@@ -5,7 +5,11 @@ class Api {
     router = express.Router();
     constructor() {
         this.router.post("/publish", apiController.publishKafkaMessage);
-        this.router.post("/batch", apiController.publishKafkaBatchMessage);
+        this.router.post(
+            "/publish-batch",
+            apiController.publishKafkaBatchMessage
+        );
+        this.router.post("/transaction", apiController.publishKafkaTransaction);
     }
 }
 

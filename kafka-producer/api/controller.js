@@ -1,5 +1,9 @@
 const kafkaService = require("../service/kafka.service");
-const { KAFKA_TOPIC, KAFKA_BATCH_TOPIC } = require("../constant/app.constant");
+const {
+    KAFKA_TOPIC,
+    KAFKA_BATCH_TOPIC,
+    KAFKA_TRANSACTION_TOPIC,
+} = require("../constant/app.constant");
 
 class Api {
     publishKafkaMessage = async (req, res, next) => {
@@ -51,10 +55,28 @@ class Api {
                 },
             ];
             await kafkaService.sendBatchMessages(batchMessages);
-            console.log("[Kafka batch message sent]");
             res.status(200).json({
                 status: "success",
                 message: "kafka batch message sent to list",
+            });
+        } catch (error) {
+            next(error);
+        }
+    };
+
+    publishKafkaTransaction = async (req, res, next) => {
+        try {
+            const { message } = req.body;
+            const messages = [
+                { key: Math.random().toString(), value: message },
+            ];
+            await kafkaService.sendTransactionMessage(
+                KAFKA_TRANSACTION_TOPIC,
+                messages
+            );
+            res.status(200).json({
+                status: "success",
+                message: "Kafka transaction message",
             });
         } catch (error) {
             next(error);
