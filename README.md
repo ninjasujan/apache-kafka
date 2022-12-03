@@ -1,6 +1,6 @@
 ### Apache kafka - Message Queue.
 
-DKafka ecouples data stream from our system.
+Kafka ecouples data stream from our system.
 Offloading the work from one server to many small worker, it creates a communication pipeline in with microservice.
 Works on the basis of pub sub architecture model.
 
